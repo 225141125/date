@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .input-ele{
+
+  }
+</style>
+<body>
+  
+  <script>
+   var bdiv=document.createElement('div');
+   bdiv.setAttribute('style','padding-top:20px');
+   var dateelement=document.createElement('input');
+   dateelement.setAttribute('type','date');
+   dateelement.id='dob';
+   dateelement.name='name';
+   dateelement.classList.add('input-ele');
+   bdiv.appendChild(dateelement);
+   var button=document.createElement('button');
+   button.innerText='display Date';
+   button.setAttribute('class','btn');
+   button.setAttribute('onclick','calculate()');
+   bdiv.appendChild(button);
+   var display=document.createElement('div');
+   display.id='display date';
+
+
+   function calculate(){
+     var input=document.getElementById('dob').value;
+     if(Date.parse(input)){
+       var inputdate=new Date(input);
+       var currentdate=new Date();
+       var millisecdiff=parseInt(currentdate.getTime())-parseInt(inputdate.getTime());
+      var seconddiff=floor(millisecdiff,1000);
+      var minutediff=floor(seconddiff,60);
+      var hourdiff=floor(minutediff,60);
+      var daydiff=floor(hourdiff,24);
+      var monthhdiff=monthdif(inputdate,currentdate);
+      var yeardif=yeardiff(inputdate,currentdate);
+      display.innerHTML=`year${yeardif} <br>
+      month${monthhdiff} <br>
+      day${daydiff} <br>
+      hour${hourdiff} <br>
+      minute${minutediff} <br>
+      second${seconddiff} <br>
+      milliseconds${millisecdiff}`;
+
+
+     }
+     else{
+       display.innerHTML='you have entered an invalid date'
+     }
+     document.body.appendChild(display);
+
+   }
+   function floor(val1,val2){
+     return Math.floor(val1/val2);
+   }
+   function yeardiff(val1,val2){
+     var d1=new Date(val1);
+     var d2=new Date(val2);
+     return d2.getFullYear()-d1.getFullYear();
+   }
+
+
+   function monthdif(val1,val2){
+     var year=yeardiff(val1,val2);
+     var month=(year*12)+(val2.getMonth()-val1.getMonth());
+     return month;
+
+   }
+   document.body.appendChild(bdiv);
+  </script>
+</body>
+</html>
